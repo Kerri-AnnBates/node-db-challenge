@@ -9,6 +9,13 @@ server.use(express.json());
 server.get('/projects', (req, res) => {
    db.getProjects()
       .then(projects => {
+         projects.forEach(obj => {
+            if (obj.completed == 1) {
+               obj.completed = true
+            } else {
+               obj.completed = false
+            }
+         })
          res.status(200).json(projects);
       })
       .catch(error => {
@@ -61,6 +68,13 @@ server.post('/resources', (req, res) => {
 server.get('/tasks', (req, res) => {
    db.getTasks()
       .then(tasks => {
+         tasks.forEach(obj => {
+            if(obj.completed == 1) {
+               obj.completed = true
+            } else {
+               obj.completed = false
+            }
+         })
          res.status(200).json(tasks);
       })
       .catch(error => {
