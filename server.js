@@ -26,34 +26,15 @@ server.get('/projects', (req, res) => {
 server.get('/projects/:id', (req, res) => {
    db.getProjectById(req.params.id)
       .then(project => {
-         // project.forEach(obj => {
-         //    if (obj.completed == 1) {
-         //       obj.completed = true
-         //    } else {
-         //       obj.completed = false
-         //    }
-         // })
+            if (project.completed === 1) {
+               project.completed = true
+            } else {
+               project.completed = false
+            }
          res.status(200).json(project);
       })
       .catch(error => {
          res.status(500).json({ error: 'problems retrieving projects' });
-      });
-});
-
-server.get('/projects/:id/tasks', (req, res) => {
-   db.getTasksByProject(req.params.id)
-      .then(task => {
-         // task.forEach(obj => {
-         //    if (obj.completed == 1) {
-         //       obj.completed = true
-         //    } else {
-         //       obj.completed = false
-         //    }
-         // })
-         res.status(200).json(task);
-      })
-      .catch(error => {
-         res.status(500).json({ error: 'problems retrieving tasks' });
       });
 });
 
